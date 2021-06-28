@@ -1,6 +1,6 @@
 {
   "name": "frer",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "",
   "main": "./es/index.js",
   "scripts": {
