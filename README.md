@@ -136,7 +136,8 @@ function App() {
 render(<App />, document.getElementById('app'))
 
 ```
-
+PS：  
+Observable can be subscribed in different components to ensure the unity of state
 
 ## des
 
