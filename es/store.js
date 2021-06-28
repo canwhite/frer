@@ -8,7 +8,7 @@ var Store = function Store() {
 
   _defineProperty(this, "eventLog", {
     dataMap: {},
-    pushHeadersMap: {}
+    headersMap: {}
   });
 };
 

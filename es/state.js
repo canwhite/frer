@@ -116,20 +116,20 @@ function actionHandle(type, options) {
     if (!tools.isCorrectVal(event.payload)) event.payload = {};
     if (!tools.isCorrectVal(event.options)) event.options = {}; //Add lastModifyId to headersMap and store event
 
-    if (!tools.isCorrectVal(eventLog.pushHeadersMap[event.type])) {
-      eventLog.pushHeadersMap[event.type] = {
+    if (!tools.isCorrectVal(eventLog.headersMap[event.type])) {
+      eventLog.headersMap[event.type] = {
         event: event,
         lastModifyId: new Date().getTime()
       };
       return true;
     }
 
-    var pushHeaders = eventLog.pushHeadersMap[event.type];
+    var pushHeaders = eventLog.headersMap[event.type];
     var lastEvent = pushHeaders.event; //Update the header time mark if there is a change, 
     //and replace the event in the header
 
     if (!options.useCache || JSON.stringify(lastEvent.payload) !== JSON.stringify(event.payload) || JSON.stringify(lastEvent.options) !== JSON.stringify(event.options)) {
-      eventLog.pushHeadersMap[event.type]["lastModifyId"] = new Date().getTime();
+      eventLog.headersMap[event.type]["lastModifyId"] = new Date().getTime();
     }
 
     pushHeaders.event = event;
@@ -148,7 +148,7 @@ function actionHandle(type, options) {
     /* new_obs$.__type__ = type; */
 
     var _obs$ = obs$.pipe(switchMap(function (event) {
-      var pushHeaders = eventLog.pushHeadersMap[event.type]; //update tag
+      var pushHeaders = eventLog.headersMap[event.type]; //update tag
 
       var hasModified = new_obs$.lastModifyId !== pushHeaders.lastModifyId;
       var cacheData; //Cache is allowed, and if there is no change, the old value is taken directly
@@ -178,7 +178,7 @@ function actionHandle(type, options) {
     }), filter(function (data) {
       //data is event
       var canPass = !(data === null || typeof data === "undefined");
-      var pushHeaders = eventLog.pushHeadersMap[type];
+      var pushHeaders = eventLog.headersMap[type];
       var event = pushHeaders.event;
       var hasModified = event.hasModified;
 

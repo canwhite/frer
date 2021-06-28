@@ -8,6 +8,7 @@ var dispatch = function dispatch(name, action) {
       type: type
     };
   }
+
   stateMap[name]["producer"](action);
 };
 
