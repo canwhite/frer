@@ -15,7 +15,7 @@ function StateSubject(value) {
   this.value = value;
 }
 
-StateSubject.prototype = Object.create(Observable.create(function (observer) {
+StateSubject.prototype = Object.create(Observable.create(function subscribe(observer) {
   if (typeof this.value !== "undefined") {
     observer.next(this.value);
   }
