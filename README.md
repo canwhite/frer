@@ -4,7 +4,7 @@ fre's state management library，written in rxjs
 
 ## install
 ```
-npm i frer
+yarn add frer
 ```
 
 ## main api
