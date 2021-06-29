@@ -1,4 +1,4 @@
-# frer
+# frex
 fre's state management library，written in rxjs
 
 
@@ -144,4 +144,36 @@ Observable can be subscribed in different components to ensure the unity of stat
 Just for fre, other frameworks can also be used if you want;  
 * The use of react is the same as fre;
 * Vue subscribes in mounted, and sets the value in data to take over
-* angular and svelte have not been tested
+* angular have not been tested
+* svelte
+```
+Keep state.js consistent in svelte
+-----------
+App.svelte
+-----------
+
+<script>
+  import {dispatch} from "frer"
+  let c = 0;
+  count$.subscribe(val=>{
+    c = val;
+  })
+  function add(){
+    dispatch("count",{
+      type:"add"
+    })
+  }
+  function sub(){
+    dispatch("count",{
+      type:"sub"
+    })
+  }
+</script>
+
+<div>{c}</div>
+<button on:click={add}>add</button>
+<button on:click={sub}>sub</button>
+
+
+```
+
