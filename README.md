@@ -152,23 +152,26 @@ App.svelte
 -----------
 
 <script>
-  import {dispatch} from "frer"
-  import {count$} from "store.js"
-  
-  let c = 0;
-  count$.subscribe(val=>{
-    c = val;
-  })
-  function add(){
-    dispatch("count",{
-      type:"add"
-    })
-  }
-  function sub(){
-    dispatch("count",{
-      type:"sub"
-    })
-  }
+	import {onMount,onDestroy } from "svelte";
+	import {count$} from "./store.js"
+	import {dispatch} from "frer"
+	let c = 0;
+
+	function add(){
+		dispatch("count",{
+			type:"add"
+		})
+	}
+	function sub(){
+		dispatch("count",{
+			type:"sub"
+		})
+	}
+	onMount(async () => {
+		count$.subscribe(val=>{
+			c = val;
+		})
+	});
 </script>
 
 <div>{c}</div>
