@@ -147,13 +147,14 @@ Just for fre, other frameworks can also be used if you want;
 * angular have not been tested
 * svelte
 ```
-Keep state.js consistent in svelte
 -----------
 App.svelte
 -----------
 
 <script>
   import {dispatch} from "frer"
+  import {count$} from "store.js"
+  
   let c = 0;
   count$.subscribe(val=>{
     c = val;
