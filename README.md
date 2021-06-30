@@ -139,7 +139,7 @@ render(<App />, document.getElementById('app'))
 PS：  
 Observable can be subscribed in different components to ensure the unity of state
 
-## des
+## expand
 
 Just for fre, other frameworks can also be used if you want;  
 * The use of react is the same as fre;
