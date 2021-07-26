@@ -180,4 +180,38 @@ App.svelte
 
 
 ```
+* Node.js
+```
+let state = require("frer").state
+let dispatch = require("frer").dispatch;
+
+const count$ = state({
+    name: "count",//key 
+    initValue: 0,//init data
+    producer(next,value,action){
+        let num = value;
+        console.log(num);
+        switch(action.type){
+            case "add":
+                num ++ ;
+                next(num);//send data
+                break;
+            case "sub":
+                num--;
+                next(num)
+                break;
+        }
+    }
+});
+
+count$.subscribe(val=>{
+    console.log(val);
+})
+
+dispatch("count",{
+    type:"add"
+})
+
+```
+
 
