@@ -15,7 +15,8 @@ function StateSubject(value) {
   this.value = value;
 }
 
-StateSubject.prototype = Object.create(Observable.create(function subscribe(observer) {
+StateSubject.prototype = Object.create( //The Observable constructor takes one argument: the subscribe function.
+Observable.create(function subscribe(observer) {
   if (typeof this.value !== "undefined") {
     observer.next(this.value);
   }
@@ -52,14 +53,25 @@ var StateMachine = /*#__PURE__*/function () {
       this._producer = options.producer;
 
       var observableFactory = function observableFactory(action) {
-        if (!tools.isObject(action)) {
+        /* if (!tools.isObject(action)) {
           return of(action);
-        } else if (tools.isObject(action) && tools.isCorrectVal(action.type)) {
-          return defer(function () {
-            var _result = action.new_value;
+        } 
+        else if (tools.isObject(action) && tools.isCorrectVal(action.type)) {
+          return defer(() => {
+            const _result = action.new_value;
             return isObservable(_result) ? _result : of(_result);
           });
-        }
+        } */
+        //initial$,
+        if (!tools.isCorrectVal(action.type)) {
+          return of(action);
+        } //action
+        else {
+            return defer(function () {
+              var _result = action.new_value;
+              return isObservable(_result) ? _result : of(_result);
+            });
+          }
       };
 
       this.subscription = merge(this.initial$, actionHandle(this.name)).pipe(switchMap(observableFactory)).subscribe(function (val) {
@@ -131,8 +143,9 @@ function actionHandle(type, options) {
     if (!options.useCache || JSON.stringify(lastEvent.payload) !== JSON.stringify(event.payload) || JSON.stringify(lastEvent.options) !== JSON.stringify(event.options)) {
       eventLog.headersMap[event.type]["lastModifyId"] = new Date().getTime();
     }
+    /* pushHeaders.event = event; */
 
-    pushHeaders.event = event;
+
     return true;
   }));
   var operations = []; //Just as an order identifier
@@ -174,7 +187,8 @@ function actionHandle(type, options) {
       if there is no or no update, and then passed to the next
       */
 
-      return hasModified ? operations.length === 0 ? of(event) : pipeFromArray(operations)(of(event)) : of(cacheData);
+      return hasModified //遍历pipe数组中的管道符
+      ? operations.length === 0 ? of(event) : pipeFromArray(operations)(of(event)) : of(cacheData);
     }), filter(function (data) {
       //data is event
       var canPass = !(data === null || typeof data === "undefined");

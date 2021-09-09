@@ -69,14 +69,25 @@
         this._producer = options.producer;
 
         var observableFactory = function observableFactory(action) {
-          if (!_tools.default.isObject(action)) {
-            return (0, _rxjs.of)(action);
-          } else if (_tools.default.isObject(action) && _tools.default.isCorrectVal(action.type)) {
-            return (0, _rxjs.defer)(function () {
-              var _result = action.new_value;
-              return (0, _rxjs.isObservable)(_result) ? _result : (0, _rxjs.of)(_result);
+          /* if (!tools.isObject(action)) {
+            return of(action);
+          } 
+          else if (tools.isObject(action) && tools.isCorrectVal(action.type)) {
+            return defer(() => {
+              const _result = action.new_value;
+              return isObservable(_result) ? _result : of(_result);
             });
-          }
+          } */
+          //initial$,
+          if (!_tools.default.isCorrectVal(action.type)) {
+            return (0, _rxjs.of)(action);
+          } //action
+          else {
+              return (0, _rxjs.defer)(function () {
+                var _result = action.new_value;
+                return (0, _rxjs.isObservable)(_result) ? _result : (0, _rxjs.of)(_result);
+              });
+            }
         };
 
         this.subscription = (0, _rxjs.merge)(this.initial$, actionHandle(this.name)).pipe((0, _operators.switchMap)(observableFactory)).subscribe(function (val) {
@@ -147,8 +158,9 @@
       if (!options.useCache || JSON.stringify(lastEvent.payload) !== JSON.stringify(event.payload) || JSON.stringify(lastEvent.options) !== JSON.stringify(event.options)) {
         eventLog.headersMap[event.type]["lastModifyId"] = new Date().getTime();
       }
+      /* pushHeaders.event = event; */
 
-      pushHeaders.event = event;
+
       return true;
     }));
     var operations = []; //Just as an order identifier
@@ -190,7 +202,8 @@
         if there is no or no update, and then passed to the next
         */
 
-        return hasModified ? operations.length === 0 ? (0, _rxjs.of)(event) : (0, _pipe.pipeFromArray)(operations)((0, _rxjs.of)(event)) : (0, _rxjs.of)(cacheData);
+        return hasModified //遍历pipe数组中的管道符
+        ? operations.length === 0 ? (0, _rxjs.of)(event) : (0, _pipe.pipeFromArray)(operations)((0, _rxjs.of)(event)) : (0, _rxjs.of)(cacheData);
       }), (0, _operators.filter)(function (data) {
         //data is event
         var canPass = !(data === null || typeof data === "undefined");
