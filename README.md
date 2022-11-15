@@ -8,6 +8,14 @@ npm i frer
 or
 yarn add frer
 ```
+## support ts
+```
+eslint processing
+todo
+
+
+```
+
 
 ## main api
 ```
