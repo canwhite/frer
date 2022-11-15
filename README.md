@@ -43,7 +43,7 @@ PS:
 Synchronous and asynchronous APIs are used in the same way
 ```
 
-## Use in fre
+## Use in fre and react
 >store.js
 ```
 import { state } from "frer";
