@@ -1,5 +1,5 @@
 # frer
-fre's state management library，written in rxjs
+fre's state management library，written in rxjs，also for vue, react, angular, node...
 
 
 ## install
