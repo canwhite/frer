@@ -10,7 +10,7 @@ yarn add frer
 ```
 ## support ts
 ```
-eslint processing.    
+eslint processing 
 
 .eslintrx.js
 
@@ -20,6 +20,7 @@ eslint processing.
   }
   
 .eslintignore
+
   node_modules
 
 
