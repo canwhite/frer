@@ -11,14 +11,14 @@ yarn add frer
 ## support ts
 ```
 eslint processing 
-
+---
 .eslintrx.js
 
   env: {
     ...
     es6:true,//   Parsing error: The keyword 'export' is reserved
   }
-  
+---
 .eslintignore
 
   node_modules
